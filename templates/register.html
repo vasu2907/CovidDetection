@@ -1,11 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Page</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Login Page</title>
 </head>
-<body>
-    <p><b>Register Page</b></p>
+<body style="background: white;">
+    <nav style="height: 90px;line-height: 90px;">
+        <div class="nav-wrapper">
+        <a href="#" class="brand-logo" style="padding-left: 10px;">Covid Detection</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="login" style="font-size: x-large;">Login</a></li>
+        </ul>
+        </div>
+    </nav>
+
+    <div class="col-md-12" style="margin-top: 50px;">
+        <div class="row">
+            <div class="log-form" style="width: 50%;margin-left: 25%;background: #f5a8ab;padding: 30px;">
+                <h3 style="margin: 0px;color: white;">Register your account</h3>
+                <br>
+                <form action="registerHandler" method="POST">
+                  <input type="text" title="username" placeholder="Username" style="font-size: x-large;"/>
+                  <input type="password" title="username" placeholder="Password" style="font-size: x-large;"/>
+                  <br><br>
+                  <button type="submit" class="btn" style="background: #ee6e73;width: 100%;font-size: large;">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

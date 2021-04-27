@@ -11,4 +11,5 @@ urlpatterns = [
     path('', loginView),
     path('register', registerView),
     path('home', homeView),
+    path('/login', loginView),
 ]

@@ -15,12 +15,24 @@ class MyEncoder(JSONEncoder):
             return o.__dict__
 
 def loginView(request):
+    username = request.session.get('username', None)
+    password = request.session.get('password', None)
+    if username != None and password != None:
+        return HttpResponseRedirect('/home')
     return render(request, 'login.html', {})
 
 def registerView(request):
+    username = request.session.get('username', None)
+    password = request.session.get('password', None)
+    if username != None and password != None:
+        return HttpResponseRedirect('/home')
     return render(request, 'register.html', {})
 
 def homeView(request):
+    username = request.session.get('username', None)
+    password = request.session.get('password', None)
+    if username == None or password == None:
+        return HttpResponseRedirect('/')
     return render(request, 'home.html', {})
 
 def loginHandlerView(request):
@@ -62,3 +74,9 @@ def registerHandlerView(request):
         errors.append(e)
         return HttpResponseRedirect('/register', {})
     return render(request, 'login.html', {})
+
+def logoutHandler(request):
+    request.session['username'] = None
+    request.session['password'] = None
+    request.session.flush()
+    return HttpResponseRedirect('/')

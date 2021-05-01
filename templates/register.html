@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,9 +26,14 @@
             <div class="log-form" style="width: 50%;margin-left: 25%;background: #f5a8ab;padding: 30px;">
                 <h3 style="margin: 0px;color: white;">Register your account</h3>
                 <br>
+                <p>{{ errors.length }}</p>
+                {% for err in errors %}
+                <p>{{ err }}</p>
+                {% endfor %}
                 <form action="registerHandler" method="POST">
-                  <input type="text" title="username" placeholder="Username" style="font-size: x-large;"/>
-                  <input type="password" title="username" placeholder="Password" style="font-size: x-large;"/>
+                    {% csrf_token %}
+                  <input type="text" title="username" placeholder="Username" name="username" style="font-size: x-large;"/>
+                  <input type="password" title="username" placeholder="Password" name="password" style="font-size: x-large;"/>
                   <br><br>
                   <button type="submit" class="btn" style="background: #ee6e73;width: 100%;font-size: large;">Register</button>
                 </form>

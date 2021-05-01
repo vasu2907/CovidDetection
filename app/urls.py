@@ -14,5 +14,6 @@ urlpatterns = [
     path('login', loginView),
     path('loginHandler', loginHandlerView),
     path('registerHandler', registerHandlerView),
-    path('logout', logoutHandler)
+    path('logout', logoutHandler),
+    path('profile', profileView)
 ]

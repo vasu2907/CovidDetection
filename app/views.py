@@ -80,3 +80,6 @@ def logoutHandler(request):
     request.session['password'] = None
     request.session.flush()
     return HttpResponseRedirect('/')
+
+def profileView(request):
+    pass

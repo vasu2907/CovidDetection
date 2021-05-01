@@ -26,15 +26,18 @@
             <div class="log-form" style="width: 50%;margin-left: 25%;background: #f5a8ab;padding: 30px;">
                 <h3 style="margin: 0px;color: white;">Fill your Information</h3>
                 <br>
-				<form action="dataHandler" method="GET" style="padding-bottom: 50px;">
-					<input type="text" title="name" placeholder="Name" style="font-size: x-large;"/>
-					<input type="number" title="phoneNumber" placeholder="Phone Number" style="font-size: x-large;"/>
-					<br>
+				<form enctype="multipart/form-data" action="dataHandler" method="POST" style="padding-bottom: 50px;">
+                    {% csrf_token %}
+                    <input type="text" name="name" placeholder="Name" style="font-size: x-large;"/>
+					<input type="number" name="phoneNumber" placeholder="Phone Number" style="font-size: x-large;"/>
+					<input type="email" name="email" placeholder="Email" style="font-size: x-large;"/>
+
+                    <br>
 
 					<div class="file-field input-field" style="width: 48%;float: left;margin-bottom: 30px;">
 						<div class="btn" style="width: 100%;font-size: large;background: #ee6e73;">
 							<span>File</span>
-							<input type="file">
+							<input type="file" name="sampleImage">
 						</div>
 
 						<div class="file-path-wrapper">

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from  django.http import HttpResponse,HttpResponseRedirect
 from .models import *
 from django.urls import reverse
+from .utils import *
 # Create your views here.
 import requests
 
@@ -88,3 +89,20 @@ def profileView(request):
         return HttpResponseRedirect('/')
     user = Users.objects.filter(username = username).filter(password = password)
     return render(request, 'profile.html', {'user': user[0]})
+
+def dataHandler(request):
+    name = request.POST.get('name', '').strip()
+    email = request.POST.get('email', '').strip()
+    phoneNumber = request.POST.get('phoneNumber', '').strip()
+    try:
+        imageFile = request.FILES.get('sampleImage').read()
+    except:
+        return HttpResponseRedirect('/home')
+    if name == '' or email == '' or phoneNumber == '':
+        return HttpResponseRedirect('/home')
+    # print(f'Name = {name} Email = {email} Phone = {phoneNumber}')
+    # print(imageFile)
+    # Here, the algorithm will come.
+    mailSuccess = send_covid_email(name, email, 'Negative')
+    print(mailSuccess)
+    return HttpResponseRedirect('/home')

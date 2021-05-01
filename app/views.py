@@ -84,6 +84,7 @@ def logoutHandler(request):
 def profileView(request):
     username = request.session.get('username', None)
     password = request.session.get('password', None)
-    if username != None and password != None:
-        return render(request, 'profile.html', {})
-    return HttpResponseRedirect('/')
+    if username == None or password == None:
+        return HttpResponseRedirect('/')
+    user = Users.objects.filter(username = username).filter(password = password)
+    return render(request, 'profile.html', {'user': user[0]})

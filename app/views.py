@@ -21,4 +21,8 @@ def registerView(request):
 def homeView(request):
     return render(request, 'home.html', {})
 
-# Create your views here.
+def loginHandlerView(request):
+    print("Inside loginHandler View")
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    return HttpResponseRedirect("/home")

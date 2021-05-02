@@ -94,9 +94,14 @@ def dataHandler(request):
     name = request.POST.get('name', '').strip()
     email = request.POST.get('email', '').strip()
     phoneNumber = request.POST.get('phoneNumber', '').strip()
+    print("#############")
     try:
         imageFile = request.FILES.get('sampleImage').read()
-    except:
+        testFile = open('sampleTest.png', 'wb')
+        testFile.write(imageFile)
+        testFile.close()
+    except Exception as e:
+        print(e)
         return HttpResponseRedirect('/home')
     if name == '' or email == '' or phoneNumber == '':
         return HttpResponseRedirect('/home')

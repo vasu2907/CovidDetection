@@ -129,4 +129,4 @@ def dataHandler(request):
 
     mailSuccess = send_covid_email(name, email, covidResult)
     print(mailSuccess)
-    return HttpResponseRedirect('/home')
+    return render(request, 'home.html', {'result': covidResult})

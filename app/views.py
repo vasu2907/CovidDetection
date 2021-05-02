@@ -100,9 +100,10 @@ def dataHandler(request):
         return HttpResponseRedirect('/home')
     if name == '' or email == '' or phoneNumber == '':
         return HttpResponseRedirect('/home')
-    # print(f'Name = {name} Email = {email} Phone = {phoneNumber}')
-    # print(imageFile)
+
     # Here, the algorithm will come.
+    # res = ?
+
     mailSuccess = send_covid_email(name, email, 'Negative')
     print(mailSuccess)
     return HttpResponseRedirect('/home')

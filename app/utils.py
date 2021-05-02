@@ -22,7 +22,7 @@ def send_covid_email(reciever_name, reciever_email, covidResult):
         <html>
         <body>
             <p>Hi {reciever_name},<br>
-            Your Covid report detected on {datetime.datetime.now().strftime("%A")} {curr.split(' ')[0]} at {curr.split(' ')[1].split('.')[0][:-3]} is {covidResult}.
+            Your Covid report detected on {datetime.datetime.now().strftime("%A")} {curr.split(' ')[0]} at {curr.split(' ')[1].split('.')[0][:-3]} (GMT) is {covidResult}.
             </p>
         </body>
         </html>

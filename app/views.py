@@ -102,7 +102,7 @@ def dataHandler(request):
     phoneNumber = request.POST.get('phoneNumber', '').strip()
     try:
         imageFile = request.FILES.get('sampleImage').read()
-        testFile = open('sampleTest.png', 'wb')
+        testFile = open('tmp/sampleTest.png', 'wb')
         testFile.write(imageFile)
         testFile.close()
     except:
@@ -111,22 +111,22 @@ def dataHandler(request):
         return HttpResponseRedirect('/home')
 
     ROOT_DIR =  os.path.dirname(os.path.abspath(__file__))
-    print(ROOT_DIR)
     modelPath = ROOT_DIR + '/../model_covid.h5'
-    print(modelPath)
     model=load_model('/home/vasu/projects/CovidDetection/model_covid.h5')
-    img=image.load_img('sampleTest.png',target_size=(224,224))
+    img=image.load_img('tmp/sampleTest.png',target_size=(224,224))
     img=image.img_to_array(img)
     img=np.expand_dims(img,axis=0)
     pred=model.predict(img)
-    print(pred)
+    # print(pred)
     y_test.append(pred[0,0])
     
     print(f'y_test is {y_test}')
+    covidResult = ''
+    if int(y_test[0]) == 0:
+        covidResult = 'Positive'
+    else:
+        covidResult = 'Negative'
 
-    # Here, the algorithm will come.
-    # res = ?
-
-    mailSuccess = send_covid_email(name, email, 'Negative')
+    mailSuccess = send_covid_email(name, email, covidResult)
     print(mailSuccess)
     return HttpResponseRedirect('/home')

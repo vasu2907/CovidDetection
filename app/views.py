@@ -3,13 +3,18 @@ from  django.http import HttpResponse,HttpResponseRedirect
 from .models import *
 from django.urls import reverse
 from .utils import *
-# Create your views here.
 import requests
-
+import joblib
 from json import JSONEncoder
 import json
 import sys
 import urllib
+import numpy as np
+import matplotlib.pyplot as plt
+import keras
+from keras.layers import *
+from keras.models import * 
+from keras.preprocessing import image
 
 class MyEncoder(JSONEncoder):
         def default(self, o):
@@ -91,6 +96,7 @@ def profileView(request):
     return render(request, 'profile.html', {'user': user[0]})
 
 def dataHandler(request):
+    y_actual, y_test = [],[]
     name = request.POST.get('name', '').strip()
     email = request.POST.get('email', '').strip()
     phoneNumber = request.POST.get('phoneNumber', '').strip()
@@ -100,6 +106,16 @@ def dataHandler(request):
         return HttpResponseRedirect('/home')
     if name == '' or email == '' or phoneNumber == '':
         return HttpResponseRedirect('/home')
+
+    
+    model=joblib.load(model_covid.h5)
+    img=image.load_img(imageFile,target_size=(224,224))
+    img=image.img_to_array()
+    img=np.expand_dims(img,axis=0)
+    pred=model.predict_classes(img)
+    y_test.append(pred[0,0])
+
+    print(y_test)
 
     # Here, the algorithm will come.
     # res = ?

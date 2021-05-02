@@ -7,7 +7,7 @@ import requests
 import joblib
 from json import JSONEncoder
 import json
-import sys
+import sys, os
 import urllib
 import numpy as np
 import matplotlib.pyplot as plt
@@ -102,20 +102,27 @@ def dataHandler(request):
     phoneNumber = request.POST.get('phoneNumber', '').strip()
     try:
         imageFile = request.FILES.get('sampleImage').read()
+        testFile = open('sampleTest.png', 'wb')
+        testFile.write(imageFile)
+        testFile.close()
     except:
         return HttpResponseRedirect('/home')
     if name == '' or email == '' or phoneNumber == '':
         return HttpResponseRedirect('/home')
 
-    
-    model=joblib.load(model_covid.h5)
-    img=image.load_img(imageFile,target_size=(224,224))
-    img=image.img_to_array()
+    ROOT_DIR =  os.path.dirname(os.path.abspath(__file__))
+    print(ROOT_DIR)
+    modelPath = ROOT_DIR + '/../model_covid.h5'
+    print(modelPath)
+    model=load_model('/home/vasu/projects/CovidDetection/model_covid.h5')
+    img=image.load_img('sampleTest.png',target_size=(224,224))
+    img=image.img_to_array(img)
     img=np.expand_dims(img,axis=0)
-    pred=model.predict_classes(img)
+    pred=model.predict(img)
+    print(pred)
     y_test.append(pred[0,0])
-
-    print(y_test)
+    
+    print(f'y_test is {y_test}')
 
     # Here, the algorithm will come.
     # res = ?
